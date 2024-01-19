@@ -16,6 +16,11 @@ async function bootstrap() {
     new FastifyAdapter(),
   )
 
+  /******************* App Config *******************/
+  app.enableVersioning()
+  app.enableCors()
+  app.enableShutdownHooks()
+
   /******************* Swagger *******************/
   setupSwagger(app)
 
