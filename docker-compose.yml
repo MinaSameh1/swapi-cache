@@ -5,6 +5,9 @@ services:
     image: 'postgres:latest'
     ports:
       - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USERNAME: ${DB_USERNAME}
     env_file:
       - .env
     networks:
