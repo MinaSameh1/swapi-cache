@@ -14,21 +14,32 @@ export class SWApiService {
     this.logger.debug('SWApiService instantiated')
   }
 
-  getMovies(name?: string) {
+  async getMovies(name?: string) {
     this.logger.debug(`getMovies: Hit name=${name}`)
     let url = this.baseUrl + '/films/'
     if (name) {
       url += `?search=${name}`
     }
-    return this.httpService.get<MovieResult>(url)
+    const response = await this.httpService.get<MovieResult>(url)
+    response.results.forEach(movie => {
+      movie.edited = new Date(movie.edited)
+      movie.created = new Date(movie.created)
+      movie.release_date = new Date(movie.release_date)
+    })
+    return response
   }
 
-  getPeople(name?: string) {
+  async getPeople(name?: string) {
     this.logger.debug(`getPeople: Hit name=${name}`)
     let url = this.baseUrl + '/people/'
     if (name) {
       url += `?search=${name}`
     }
-    return this.httpService.get<PeopleResult>(url)
+    const response = await this.httpService.get<PeopleResult>(url)
+    response.results.forEach(person => {
+      person.edited = new Date(person.edited)
+      person.created = new Date(person.created)
+    })
+    return response
   }
 }
