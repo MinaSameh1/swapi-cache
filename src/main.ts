@@ -19,7 +19,6 @@ async function bootstrap() {
   /******************* App Config *******************/
   app.enableVersioning()
   app.enableCors()
-  app.enableShutdownHooks()
 
   /******************* Swagger *******************/
   setupSwagger(app)

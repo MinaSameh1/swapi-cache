@@ -2,9 +2,14 @@ import { z } from 'zod'
 
 const envSchema = z.object({
   PORT: z.string().default('8000'),
-  DATABASE_URL: z
-    .string()
-    .default('postgres://postgres:postgres@localhost:5432/postgres'),
+  DB_USERNAME: z.string(),
+  DB_PASSWORD: z.string(),
+  DB_HOST: z.string(),
+  DB_PORT: z.string(),
+  DB_NAME: z.string(),
+  DB_SCHEMA: z.string(),
+  DB_LOGGING: z.boolean().default(false),
+  APP_LOGGING_LEVEL: z.string().default('info'),
 })
 
 export function validate(config: Record<string, unknown>) {
