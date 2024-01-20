@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { AbstractEntity } from 'src/common/database'
-import { Column, Entity, ManyToMany } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm'
 import { PersonEntity } from './person.entity'
 
-@Entity()
+@Entity('movie')
 export class MovieEntity extends AbstractEntity {
   @Column({ unique: true })
   @ApiProperty({ description: 'The id of the movie from swapi', example: '1' })
@@ -56,6 +56,11 @@ export class MovieEntity extends AbstractEntity {
   })
   url: string
   @ManyToMany(() => PersonEntity, person => person.movies)
+  @JoinTable({
+    name: 'movie_person',
+    joinColumn: { name: 'movie_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'person_id', referencedColumnName: 'id' },
+  })
   @ApiProperty({
     description: 'The characters in the movie',
   })

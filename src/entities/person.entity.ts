@@ -3,7 +3,7 @@ import { AbstractEntity } from 'src/common/database'
 import { Column, Entity, Index, ManyToMany } from 'typeorm'
 import { MovieEntity } from './movie.entity'
 
-@Entity()
+@Entity('person')
 export class PersonEntity extends AbstractEntity {
   @Column()
   @Index()
