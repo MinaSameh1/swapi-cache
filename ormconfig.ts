@@ -13,7 +13,7 @@ const config: TypeOrmModuleOptions & PostgresConnectionOptions = {
   schema: process.env.DB_SCHEMA,
   synchronize: false,
   logging: process.env.DB_LOGGING == 'true',
-  entities: ['dist/**/*.entity{.ts,.js}'],
+  entities: ['dist/src/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/**/*{.ts,.js}'],
   migrationsRun: true,
 }
