@@ -12,13 +12,6 @@ export const setupHelmet = (app: NestFastifyApplication) => {
   app.register(helmet, {
     // To solve swagger-ui issues with CSP
     // See https://docs.nestjs.com/openapi/introduction
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", 'data:', 'validator.swagger.io'],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
-      },
-    },
+    contentSecurityPolicy: false,
   })
 }
