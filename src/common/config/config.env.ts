@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
+  NODE_ENV: z.string().default('production'),
   PORT: z.string().default('8000'),
   DB_USERNAME: z.string(),
   DB_PASSWORD: z.string(),
