@@ -8,7 +8,11 @@ const envSchema = z.object({
   DB_PORT: z.string(),
   DB_NAME: z.string(),
   DB_SCHEMA: z.string(),
-  DB_LOGGING: z.boolean().default(false),
+  DB_LOGGING: z
+    .string()
+    .optional()
+    .default('false')
+    .transform(value => value === 'true'),
   APP_LOGGING_LEVEL: z.string().default('info'),
 })
 
