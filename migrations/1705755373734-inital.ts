@@ -50,9 +50,9 @@ export class Inital1705755373734 implements MigrationInterface {
 
     await queryRunner.query(
       `CREATE TABLE "movie_person" (
-            "movieId" int NOT NULL,
-            "personId" int NOT NULL,
-            CONSTRAINT "PK_MOVIE_PERSON_ID" PRIMARY KEY ("movieId", "personId")
+            "movie_id" int NOT NULL,
+            "person_id" int NOT NULL,
+            CONSTRAINT "PK_MOVIE_PERSON_ID" PRIMARY KEY ("movie_id", "person_id")
         )`,
     )
     await queryRunner.query(
@@ -70,8 +70,8 @@ export class Inital1705755373734 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TABLE "movie_person"`)
     await queryRunner.query(`DROP TABLE "movie"`)
     await queryRunner.query(`DROP TABLE "person"`)
-    await queryRunner.query(`DROP TABLE "movie_person"`)
   }
 }
