@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import * as path from 'path'
 import { ConfigModule, CustomConfigService } from '../config'
 
+const entitesPath = path.join(__dirname, '../../entities/**/*.entity{.ts,.js}')
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -13,7 +15,7 @@ import { ConfigModule, CustomConfigService } from '../config'
         username: customConfigService.getDbUsername(),
         password: customConfigService.getDbPassword(),
         database: customConfigService.getDbName(),
-        entities: [],
+        entities: [entitesPath],
         synchronize: false,
       }),
       inject: [CustomConfigService],
@@ -27,7 +29,7 @@ export class DatabaseModule {}
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: ':memory:',
-      entities: [],
+      entities: [entitesPath],
       synchronize: true,
     }),
   ],
