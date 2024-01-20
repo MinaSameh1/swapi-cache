@@ -1,20 +1,13 @@
-import { NestFactory } from '@nestjs/core'
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify'
 import { AppModule } from './app.module'
 import { CustomConfigService } from './common/config'
 import { HttpExceptionFilter } from './common/filters'
 import { setupSwagger } from './common/helpers/swagger.helper'
 import { LoggerInterceptor } from './common/interceptors'
+import { createNestApp } from './common/helpers/server.helper'
 
 async function bootstrap() {
   /******************* Create the app *******************/
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
-  )
+  const app = await createNestApp(AppModule)
 
   /******************* App Config *******************/
   app.enableVersioning()
