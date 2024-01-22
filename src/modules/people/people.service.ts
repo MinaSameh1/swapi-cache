@@ -78,7 +78,11 @@ export class PeopleService {
       page: pagination.page,
     })
 
-    if (swapiPeople.results.length < 1 || swapiPeople.count < 1)
+    if (
+      !swapiPeople ||
+      swapiPeople?.results.length < 1 ||
+      swapiPeople?.count < 1
+    )
       throw new HttpException('No data', HttpStatus.NO_CONTENT)
 
     let people = this.personRepository.create(
@@ -124,7 +128,7 @@ export class PeopleService {
       )
       return item
     }
-    const swapiPerson = await this.swapiService.getPerson(id)
+    const swapiPerson = await this.swapiService.getPerson(id).catch(() => null)
     if (!swapiPerson) return null
 
     const person = this.personRepository.create({
