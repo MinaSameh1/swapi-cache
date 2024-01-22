@@ -1,11 +1,17 @@
 import { InjectionToken } from '@nestjs/common'
 import { HttpService } from 'src/common/services'
 import {
-  generateManyFakeSwapiPeople,
   generateFakeSwapiPeople,
+  generateManyFakeSwapiPeople,
 } from './generator'
 
-export function getMockedHttpGetForSwapi(token: InjectionToken | undefined) {
+export function getMockedHttpGetForSwapi(
+  token: InjectionToken | undefined,
+  getResults = {
+    many: generateManyFakeSwapiPeople,
+    one: generateFakeSwapiPeople,
+  },
+) {
   if (token == HttpService) {
     return {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -17,11 +23,11 @@ export function getMockedHttpGetForSwapi(token: InjectionToken | undefined) {
           console.log('match', _url)
           return {
             id,
-            ...generateFakeSwapiPeople(),
+            ...getResults.one(),
           }
         }
 
-        const results = generateManyFakeSwapiPeople()
+        const results = getResults.many()
         return {
           results,
           count: results.length,
