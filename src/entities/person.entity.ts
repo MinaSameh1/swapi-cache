@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { AbstractEntity } from 'src/common/database'
-import { Column, Entity, Index, ManyToMany } from 'typeorm'
-import { MovieEntity } from './movie.entity'
+import { Column, Entity, Index } from 'typeorm'
 
 @Entity('person')
 export class PersonEntity extends AbstractEntity {
@@ -83,13 +82,7 @@ export class PersonEntity extends AbstractEntity {
     description: 'The films the person appears in',
     example: ['https://swapi.dev/api/films/1/'],
   })
-  moviesUrls: string[]
-
-  @ManyToMany(() => MovieEntity, movie => movie.characters)
-  @ApiProperty({
-    description: 'The films the person appears in',
-  })
-  movies: MovieEntity[]
+  moviesIds: string[]
 
   @Column({ type: 'text', array: true })
   @ApiProperty({
