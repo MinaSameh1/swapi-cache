@@ -1,7 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { People } from '../swapi.types'
 
-export const generateFakeSwapiPeople = (): People => {
+export const generateFakeSwapiPeople = (
+  overrides?: Partial<People> | any,
+): People => {
   return {
     name: faker.internet.userName(),
     height: '172',
@@ -12,15 +14,12 @@ export const generateFakeSwapiPeople = (): People => {
     birth_year: '19BBY',
     gender: 'male',
     homeworld: 'https://swapi.dev/api/planets/1/',
-    films: faker.helpers.arrayElements(
-      [
-        'https://swapi.dev/api/films/1/',
-        'https://swapi.dev/api/films/2/',
-        'https://swapi.dev/api/films/3/',
-        'https://swapi.dev/api/films/6/',
-      ],
-      2,
-    ),
+    films: [
+      'https://swapi.dev/api/films/1/',
+      'https://swapi.dev/api/films/2/',
+      'https://swapi.dev/api/films/3/',
+      'https://swapi.dev/api/films/6/',
+    ],
     species: [],
     vehicles: faker.helpers.arrayElements([
       'https://swapi.dev/api/vehicles/14/',
@@ -33,6 +32,7 @@ export const generateFakeSwapiPeople = (): People => {
     created: faker.date.past(),
     edited: faker.date.past(),
     url: faker.internet.url(),
+    ...overrides,
   }
 }
 

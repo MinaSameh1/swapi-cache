@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { HttpService } from 'src/common/services'
 import { AppServicesModule } from 'src/common/services/app.service'
 import { SWApiService } from '../swapi.service'
-import { generateManyFakeSwapiPeople } from './generator'
+import { getMockedHttpGetForSwapi } from './swapi.mocks'
 
 describe('SwapiService', () => {
   describe('Unit Testing', () => {
@@ -12,23 +12,7 @@ describe('SwapiService', () => {
       const module: TestingModule = await Test.createTestingModule({
         providers: [SWApiService],
       })
-        .useMocker(token => {
-          if (token === HttpService) {
-            return {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              get: (_url: string) => {
-                const results = generateManyFakeSwapiPeople()
-                return {
-                  results,
-                  count: results.length,
-                  next: null,
-                  previous: null,
-                }
-              },
-            }
-          }
-          return null
-        })
+        .useMocker(token => getMockedHttpGetForSwapi(token))
         .compile()
 
       service = module.get<SWApiService>(SWApiService)
