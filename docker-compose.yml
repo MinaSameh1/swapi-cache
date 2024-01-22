@@ -52,18 +52,18 @@ services:
       - 8000:8000
     env_file:
       - .env
+    environment:
+      - DB_HOST:'app_network'
     networks:
       - app_network
   backend_test:
     build:
       context: .
       dockerfile: ./infstructure/DockerfileTest
-    ports:
-      - 8000:8000
-    environment:
-      - DB_HOST:'app_network'
     env_file:
       - .env
+    environment:
+      - DB_HOST:'app_network'
     networks:
       - app_network
 
