@@ -14,9 +14,11 @@ export class SWApiService {
     this.logger.debug('SWApiService instantiated')
   }
 
-  async getMovies(name?: string) {
+  async getMovies(
+    { name, page = 1 }: { name?: string; page: number } = { page: 1 },
+  ) {
     this.logger.debug(`getMovies: Hit name=${name}`)
-    let url = this.baseUrl + '/films/'
+    let url = this.baseUrl + '/films/?page=' + page
     if (name) {
       url += `?search=${name}`
     }
@@ -29,9 +31,11 @@ export class SWApiService {
     return response
   }
 
-  async getPeople(name?: string) {
+  async getPeople(
+    { name, page = 1 }: { name?: string; page: number } = { page: 1 },
+  ) {
     this.logger.debug(`getPeople: Hit name=${name}`)
-    let url = this.baseUrl + '/people/'
+    let url = this.baseUrl + '/people/?page=' + page
     if (name) {
       url += `?search=${name}`
     }

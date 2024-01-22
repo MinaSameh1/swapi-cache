@@ -46,7 +46,7 @@ describe('SwapiService', () => {
     })
 
     it('should accept a name parameter', async () => {
-      const movies = await service.getMovies('A New Hope')
+      const movies = await service.getMovies({ name: 'A New Hope', page: 1 })
       expect(movies).toBeDefined()
       expect(movies.results.length).toBeGreaterThan(0)
     })
@@ -58,7 +58,10 @@ describe('SwapiService', () => {
     })
 
     it('should accept a name parameter', async () => {
-      const people = await service.getPeople('Luke Skywalker')
+      const people = await service.getPeople({
+        name: 'Luke Skywalker',
+        page: 1,
+      })
       expect(people).toBeDefined()
       expect(people.results.length).toBeGreaterThan(0)
     })
@@ -103,7 +106,7 @@ describe('SwapiService', () => {
     })
 
     it('should accept a name parameter', async () => {
-      const movies = await service.getMovies('A New Hope')
+      const movies = await service.getMovies({ name: 'A New Hope', page: 1 })
       console.log(movies)
       expect(movies).toBeDefined()
       expect(movies.results.length).toBeGreaterThan(0)
@@ -127,7 +130,10 @@ describe('SwapiService', () => {
     })
 
     it('should accept a name parameter', async () => {
-      const people = await service.getPeople('Luke Skywalker')
+      const people = await service.getPeople({
+        name: 'Luke Skywalker',
+        page: 1,
+      })
       expect(people).toBeDefined()
       expect(people.results.length).toBeGreaterThan(0)
     })
