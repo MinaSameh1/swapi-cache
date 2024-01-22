@@ -65,7 +65,7 @@ describe('SwapiService', () => {
   })
 
   // Does actual HTTP calls
-  describe('Integration Testing', () => {
+  describe.skip('Integration Testing', () => {
     let service: SWApiService
 
     beforeEach(async () => {
