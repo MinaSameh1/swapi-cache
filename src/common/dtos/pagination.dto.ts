@@ -22,4 +22,5 @@ export class PaginationQueryDto extends createZodDto(querySchema) {
 export interface PaginationQuery {
   skip: number
   take: number
+  page: number
 }

@@ -24,6 +24,7 @@ export const Pagination = createParamDecorator(
         : 0
 
     return {
+      page: page + 1,
       skip: page * take,
       take,
     }
