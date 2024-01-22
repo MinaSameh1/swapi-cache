@@ -39,10 +39,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     // only warn 400 and above errors.
     else if (status >= 400) this.logger.warn(`Finished ${logMessage}`)
     // techincally this should never happen
-    else
-      this.logger.fatal(
-        `SOMETHING THAT SHOULD NEVER HAPPEN HAPPENED! Error thrown on ${logMessage}`,
-      )
+    else this.logger.log(`Finished ${logMessage}`)
 
     return response.status(status).send({
       statusCode: status,
