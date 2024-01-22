@@ -1,3 +1,4 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import {
   HttpException,
   HttpStatus,
@@ -5,16 +6,15 @@ import {
   Injectable,
   Logger,
 } from '@nestjs/common'
-import { PeopleRepository } from './people.repository'
-import { QueryPeopleDto } from './dto/query-people.dto'
-import { PersonEntity } from 'src/entities/person.entity'
+import { Cache } from 'cache-manager'
 import { PaginationQuery } from 'src/common/dtos'
 import { PaginatedDto } from 'src/common/dtos/paginated.dto'
 import { FindParams } from 'src/common/types/db.type'
+import { PersonEntity } from 'src/entities/person.entity'
 import { SWApiService } from '../SWApi/swapi.service'
-import { CACHE_MANAGER } from '@nestjs/cache-manager'
-import { Cache } from 'cache-manager'
+import { QueryPeopleDto } from './dto/query-people.dto'
 import { cacheTtl } from './people.assets'
+import { PeopleRepository } from './people.repository'
 
 @Injectable()
 export class PeopleService {
@@ -127,7 +127,10 @@ export class PeopleService {
     const swapiPerson = await this.swapiService.getPerson(id)
     if (!swapiPerson) return null
 
-    const person = this.personRepository.create(swapiPerson)
+    const person = this.personRepository.create({
+      ...swapiPerson,
+      moviesIds: swapiPerson.films.map(film => film.split('/').slice(-2)[0]),
+    })
     await this.personRepository.save(person)
     await this.cacheManager.set(
       personCacheKey,
