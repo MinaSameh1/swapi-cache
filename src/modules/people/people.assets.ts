@@ -4,3 +4,5 @@ export const PeopleErrorMessagesAndCodes = {
     code: 'missing_person',
   },
 }
+
+export const cacheTtl = 60 * 1000

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { PersonEntity } from 'src/entities/person.entity'
+import { SWApiModule } from '../SWApi/swapi.module'
 import { PeopleController } from './people.controller'
-import { PeopleService } from './people.service'
 import { PeopleRepository } from './people.repository'
+import { PeopleService } from './people.service'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PersonEntity])],
+  imports: [SWApiModule, TypeOrmModule.forFeature([PersonEntity])],
   controllers: [PeopleController],
   providers: [PeopleService, PeopleRepository],
 })

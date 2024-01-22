@@ -62,10 +62,19 @@ export class PeopleController {
     @Pagination() pagination: PaginationQuery,
     @Query() query?: QueryPeopleDto,
   ) {
-    const results = await this.peopleService.findAll(pagination, query, {
-      name: true,
-      gender: true,
-    })
+    const results = await this.peopleService.findAll(
+      pagination,
+      // Zod doesn't support transform
+      QueryPeopleDto.fromPartial(query),
+      {
+        id: true,
+        name: true,
+        eye_color: true,
+        hair_color: true,
+        gender: true,
+        homeworld: true,
+      },
+    )
     if (results.pages === 0 && results.total === 0)
       throw new HttpException(
         {
@@ -73,6 +82,7 @@ export class PeopleController {
         },
         HttpStatus.NO_CONTENT,
       )
+    return results
   }
 
   /**** Swagger docs ****/
