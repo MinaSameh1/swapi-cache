@@ -23,11 +23,12 @@ export class SWApiService {
       url += `?search=${name}`
     }
     const response = await this.httpService.get<MovieResult>(url)
-    response.results.forEach(movie => {
-      movie.edited = new Date(movie.edited)
-      movie.created = new Date(movie.created)
-      movie.release_date = new Date(movie.release_date)
-    })
+    if (response.count > 0)
+      response.results.forEach(movie => {
+        movie.edited = new Date(movie.edited)
+        movie.created = new Date(movie.created)
+        movie.release_date = new Date(movie.release_date)
+      })
     return response
   }
 
@@ -40,31 +41,42 @@ export class SWApiService {
       url += `?search=${name}`
     }
     const response = await this.httpService.get<PeopleResult>(url)
-    response.results.forEach(person => {
-      person.edited = new Date(person.edited)
-      person.created = new Date(person.created)
-    })
+    if (response.count > 0)
+      response.results.forEach(person => {
+        person.edited = new Date(person.edited)
+        person.created = new Date(person.created)
+      })
     return response
   }
 
   async getPerson(id: number) {
     this.logger.debug(`getPerson: Hit id=${id}`)
-    const person = await this.httpService.get<People>(
-      this.baseUrl + '/people/' + id,
-    )
-    person.edited = new Date(person.edited)
-    person.created = new Date(person.created)
-    return person
+    try {
+      const person = await this.httpService.get<People>(
+        this.baseUrl + '/people/' + id,
+      )
+      person.edited = new Date(person.edited)
+      person.created = new Date(person.created)
+      return person
+    } catch (error) {
+      this.logger.error(error)
+      return null
+    }
   }
 
   async getMovie(id: number) {
     this.logger.debug(`getMovie: Hit id=${id}`)
-    const movie = await this.httpService.get<Movie>(
-      this.baseUrl + '/films/' + id,
-    )
-    movie.edited = new Date(movie.edited)
-    movie.created = new Date(movie.created)
-    movie.release_date = new Date(movie.release_date)
-    return movie
+    try {
+      const movie = await this.httpService.get<Movie>(
+        this.baseUrl + '/films/' + id,
+      )
+      movie.edited = new Date(movie.edited)
+      movie.created = new Date(movie.created)
+      movie.release_date = new Date(movie.release_date)
+      return movie
+    } catch (err) {
+      this.logger.error(err)
+      return null
+    }
   }
 }
