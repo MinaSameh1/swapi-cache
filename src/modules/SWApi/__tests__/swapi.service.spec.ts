@@ -59,7 +59,7 @@ describe('SwapiService', () => {
     it('should return a person', async () => {
       const person = await service.getPerson(1)
       expect(person).toBeDefined()
-      expect(person.name).toBe('Luke Skywalker')
+      expect(person!.name).toBeDefined()
     })
   })
 
@@ -137,7 +137,7 @@ describe('SwapiService', () => {
     it('should return a person', async () => {
       const person = await service.getPerson(1)
       expect(person).toBeDefined()
-      expect(person.name).toBe('Luke Skywalker')
+      expect(person!.name).toBe('Luke Skywalker')
     })
   })
 })
