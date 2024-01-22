@@ -27,11 +27,13 @@ export class DatabaseService implements OnModuleInit, OnApplicationShutdown {
     return this.dataSource
   }
 
-  getRepository<T>(entity: new () => T): Repository<T> {
+  getRepository<T extends object>(entity: new () => T): Repository<T> {
     return this.dataSource.getRepository(entity)
   }
 
-  getQueryBuilder<T>(entity: new () => T): SelectQueryBuilder<T> {
+  getQueryBuilder<T extends object>(
+    entity: new () => T,
+  ): SelectQueryBuilder<T> {
     return this.dataSource.getRepository(entity).createQueryBuilder()
   }
 }
