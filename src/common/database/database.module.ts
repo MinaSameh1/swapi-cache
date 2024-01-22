@@ -29,6 +29,7 @@ export class DatabaseModule {}
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: ':memory:',
+      dropSchema: true,
       entities: [entitesPath],
       synchronize: true,
     }),
