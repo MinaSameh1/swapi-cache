@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { HttpService } from 'src/common/services'
-import { MovieResult, People, PeopleResult } from './swapi.types'
+import { Movie, MovieResult, People, PeopleResult } from './swapi.types'
 
 @Injectable()
 export class SWApiService {
@@ -55,5 +55,16 @@ export class SWApiService {
     person.edited = new Date(person.edited)
     person.created = new Date(person.created)
     return person
+  }
+
+  async getMovie(id: number) {
+    this.logger.debug(`getMovie: Hit id=${id}`)
+    const movie = await this.httpService.get<Movie>(
+      this.baseUrl + '/films/' + id,
+    )
+    movie.edited = new Date(movie.edited)
+    movie.created = new Date(movie.created)
+    movie.release_date = new Date(movie.release_date)
+    return movie
   }
 }
