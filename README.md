@@ -1,6 +1,8 @@
 ## Description
 
-A project that aims to integrate with [Star Wars API](https://swapi.dev/documentation), it is made using [Nest](https://github.com/nestjs/nest) and has caching
+A project that aims to integrate with [Star Wars API](https://swapi.dev/documentation), it is made using [Nest](https://github.com/nestjs/nest) and has caching.
+
+Swagger docs avaliable at `/docs`, ex: `http://localhost:8000/docs#/` 
 
 ## Installation
 
