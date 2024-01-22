@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     networks:
-      - postgres-network
+      - app_network
     volumes:
       - ./db-data/:/var/lib/postgresql/data/
       # Left in case I want to populate.
@@ -28,8 +28,7 @@ services:
     depends_on:
       - db
     networks:
-      # Use database as hostname to connect to postgres.
-      - postgres-network
+      - app_network
     volumes:
       # Don't forget to sudo chown -R 5050:5050 ./pgadmin-data
       # or else it will fail to bind
@@ -43,11 +42,35 @@ services:
       # --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes:
       - cache:/data/redis
+    networks:
+      - app_network
+  backend:
+    build:
+      context: .
+      dockerfile: ./infstructure/Dockerfile
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    networks:
+      - app_network
+  backend_test:
+    build:
+      context: .
+      dockerfile: ./infstructure/DockerfileTest
+    ports:
+      - 8000:8000
+    environment:
+      - DB_HOST:'app_network'
+    env_file:
+      - .env
+    networks:
+      - app_network
 
 volumes:
   cache:
     driver: local
 
 networks:
-  postgres-network:
+  app_network:
     driver: bridge
