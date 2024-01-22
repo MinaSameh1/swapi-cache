@@ -65,6 +65,18 @@ describe('SwapiService', () => {
       expect(people).toBeDefined()
       expect(people.results.length).toBeGreaterThan(0)
     })
+
+    it('should accept a page param', () => {
+      const people = service.getPeople({ page: 1 })
+      expect(people).toBeDefined()
+      expect(people).resolves.toHaveProperty('results')
+    })
+
+    it('should return a person', async () => {
+      const person = await service.getPerson(1)
+      expect(person).toBeDefined()
+      expect(person.name).toBe('Luke Skywalker')
+    })
   })
 
   // Does actual HTTP calls
@@ -136,6 +148,12 @@ describe('SwapiService', () => {
       })
       expect(people).toBeDefined()
       expect(people.results.length).toBeGreaterThan(0)
+    })
+
+    it('should return a person', async () => {
+      const person = await service.getPerson(1)
+      expect(person).toBeDefined()
+      expect(person.name).toBe('Luke Skywalker')
     })
   })
 })
