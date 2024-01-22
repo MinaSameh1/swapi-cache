@@ -8,8 +8,8 @@ export class CustomConfigService {
     private configService: ConfigService,
   ) {}
 
-  get<T = string>(key: string): T {
-    return this.configService.get<T>(key)
+  get<T = string>(key: string, defaultValue?: T): T {
+    return this.configService.get<T>(key) ?? defaultValue
   }
 
   getPort(): number {
@@ -33,5 +33,8 @@ export class CustomConfigService {
   }
   getDbSchema() {
     return this.get('DB_SCHEMA')
+  }
+  getRedisUrl(): string {
+    return this.get('REDIS_URL')
   }
 }

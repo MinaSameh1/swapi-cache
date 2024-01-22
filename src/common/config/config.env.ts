@@ -14,6 +14,7 @@ const envSchema = z.object({
     .optional()
     .default('false')
     .transform(value => value === 'true'),
+  REDIS_URL: z.string().optional().default('redis://localhost:6379'),
   APP_LOGGING_LEVEL: z.string().default('info'),
 })
 
