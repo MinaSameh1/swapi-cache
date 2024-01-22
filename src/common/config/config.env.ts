@@ -15,7 +15,9 @@ const envSchema = z.object({
     .default('false')
     .transform(value => value === 'true'),
   REDIS_URL: z.string().optional().default('redis://localhost:6379'),
-  APP_LOGGING_LEVEL: z.string().default('info'),
+  LOGGING_LEVEL: z
+    .enum(['debug', 'verbose', 'log', 'warn', 'error', 'info', 'silent'])
+    .default('info'),
 })
 
 export function validate(config: Record<string, unknown>) {

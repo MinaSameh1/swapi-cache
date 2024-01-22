@@ -37,4 +37,7 @@ export class CustomConfigService {
   getRedisUrl(): string {
     return this.get('REDIS_URL', '')
   }
+  getLoggerLevel() {
+    return this.get('LOGGER_LEVEL', 'info')
+  }
 }
